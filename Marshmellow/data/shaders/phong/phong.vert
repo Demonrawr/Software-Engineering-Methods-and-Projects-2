@@ -1,0 +1,39 @@
+#version 400
+
+// Inputs
+
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec2 in_texCoord;
+
+
+// Uniforms 
+
+uniform mat4 modelMatrix;
+uniform mat3 normalMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 MVPMatrix;
+
+// Outs
+out vec3 f_positionWorld;
+out vec3 f_positionCamera;
+out vec3 f_normalWorld;
+out vec3 f_normalCamera;
+out vec2 f_texCoord;
+
+void main ()
+{
+	
+	vec4 wp = (modelMatrix * vec4( in_position, 1 ) );
+	f_positionWorld = wp.xyz;
+	f_positionCamera = ( viewMatrix * wp ).xyz;
+	f_normalWorld = normalize( (modelMatrix * vec4(in_normal,0) ).xyz );
+	f_normalCamera = normalMatrix*in_normal;
+	f_texCoord = in_texCoord;
+	f_texCoord.y = 1-f_texCoord.y;
+//	f_texCoord.x -= 1.0/512.0;
+//	f_texCoord.y += 1.0/512.0;
+
+	gl_Position = MVPMatrix * vec4(in_position,1);
+}

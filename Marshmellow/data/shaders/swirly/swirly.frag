@@ -1,0 +1,30 @@
+#version 400
+
+uniform vec2 iResolution;
+uniform float time;
+
+out vec4 fragColor;
+
+void main(void)
+{
+	vec2 uv = gl_FragCoord.xy / iResolution.xy*2.0-1.0;
+	float len = sin(16.*length(uv)-time*4.)*0.5+0.5 ;
+	vec3 col = vec3(len)*vec3(0.98,0.,.0);
+if( length(uv) > 0.825 ) col = vec3( 0.0 );
+	fragColor = vec4(col*1.5, length(col) );
+}
+
+
+/*
+void main(void)
+{
+    float t = time;
+    vec2 uv = (gl_FragCoord.xy / iResolution.xy)*2.0-1.0;
+    float angle = atan(uv.y,uv.x) + t;
+    float k = sin(t)*2.0;
+    angle -= length(uv) * k;
+    
+    vec3 gold = vec3(1.0, 0.94, 0.0);
+    fragColor = vec4(gold*vec3(cos(8.*angle)),1.0);
+}
+*/

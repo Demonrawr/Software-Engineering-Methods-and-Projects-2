@@ -1,0 +1,29 @@
+#version 400
+
+// Inputs
+
+layout (location = 0) in vec3 in_position;
+layout (location = 2) in vec2 in_texCoord;
+
+// Uniforms 
+
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 MVPMatrix;
+
+uniform vec2 scale = vec2( 1.0, 1.0 );
+
+uniform vec3 projpos;
+
+// Outs
+out vec2 f_texCoord;
+
+void main ()
+{
+	f_texCoord = in_texCoord;
+	f_texCoord.y = 1-f_texCoord.y;
+
+	gl_Position = projectionMatrix * viewMatrix * vec4(projpos,1);
+	gl_Position.xy += scale * in_position.xy;
+}
