@@ -1,0 +1,11 @@
+<Sprite name="JumpPad">
+	<Dimensions>
+		<X>0.5</X>
+		<Y>0.15</Y>
+	</Dimensions>
+	<Offset>
+		<X>0.0</X>
+		<Y>0.0</Y>
+	</Offset>
+	<TexturePath>textures/jumpPads/jumpPad.png</TexturePath>
+</Sprite>

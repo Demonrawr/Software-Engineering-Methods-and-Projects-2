@@ -1,0 +1,54 @@
+<MultiSprite name="JumpPad">
+	<State name="LeftUp">
+		<Sprite name="Doodler">
+			<Dimensions>
+				<X>0.3</X>
+				<Y>0.3</Y>
+			</Dimensions>
+			<Offset>
+				<X>0.0</X>
+				<Y>0.0</Y>
+			</Offset>
+			<TexturePath>textures/marshmellow/Squash_l.png</TexturePath>
+		</Sprite>
+	</State>
+	<State name="LeftDown">
+		<Sprite name="Doodler">
+			<Dimensions>
+				<X>0.3</X>
+				<Y>0.3</Y>
+			</Dimensions>
+			<Offset>
+				<X>0.0</X>
+				<Y>0.0</Y>
+			</Offset>
+			<TexturePath>textures/marshmellow/Idle_l.png</TexturePath>
+		</Sprite>
+	</State>
+	<State name="RightUp">
+		<Sprite name="Doodler">
+			<Dimensions>
+				<X>0.3</X>
+				<Y>0.3</Y>
+			</Dimensions>
+			<Offset>
+				<X>0.0</X>
+				<Y>0.0</Y>
+			</Offset>
+			<TexturePath>textures/marshmellow/Squash_r.png</TexturePath>
+		</Sprite>
+	</State>
+	<State name="RightDown">
+		<Sprite name="Doodler">
+			<Dimensions>
+				<X>0.3</X>
+				<Y>0.3</Y>
+			</Dimensions>
+			<Offset>
+				<X>0.0</X>
+				<Y>0.0</Y>
+			</Offset>
+			<TexturePath>textures/marshmellow/Idle_r.png</TexturePath>
+		</Sprite>
+	</State>
+</MultiSprite>
