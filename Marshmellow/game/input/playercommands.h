@@ -6,6 +6,7 @@ struct PlayerCommands
     PlayerCommands() :
         moveLeft(false),
         moveRight( false ),
+        moveUp( false ),
         shoot( false ),
         reloadSprites(false)
     {
@@ -14,6 +15,7 @@ struct PlayerCommands
 
     bool moveLeft;
     bool moveRight;
+    bool moveUp;
     bool shoot;
     bool reloadSprites;
 };

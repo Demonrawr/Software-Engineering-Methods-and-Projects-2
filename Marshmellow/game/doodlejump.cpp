@@ -46,7 +46,7 @@ void Marshmellow::startButtonPressed()
 }
 
 void Marshmellow::restartButtonPressed()
-{
+{//need to fix restart button so that the character resets in the correct position
     resetVariables();
     setBlendState();
     setCameraState();
@@ -140,23 +140,23 @@ void Marshmellow::tick(float dt )
    velocity = initvelocity + ((-4.8)*timer);
    double height = velocity+(0.5*(-4.8)*timer);
    timer+=.002;
-   //p.position.y += height;
+   //p.position.x += height;
    m_doodlerSprite->setOrientation(p);
    setCameraState();
    padMovement();
-   if (p.position.y > m_score) {
-       m_score = p.position.y;
+   if (p.position.x > m_score) {
+       m_score = p.position.x;
    }
-   if (p.position.y < (m_camera.getPosition().y-3.5)){ //Drop
+   if (p.position.x < (m_camera.getPosition().x-5/*fix here so that if character is out of the screen to say lost*/)){ //Drop
        qDebug() << "Lost" << endl;
    }
 
-   if (colliding(m_doodlerSprite->getSpritesToDraw().back(),*m_jumppadSprite)){ //Colliion
+   if (colliding(m_doodlerSprite->getSpritesToDraw().back(),*m_jumppadSprite)){ //Collision
        velocity = 0;
        timer = 0;
    }
 
-   if (colliding(m_doodlerSprite->getSpritesToDraw().back(),*m_jumpMoveSprite)){ //Colliion
+   if (colliding(m_doodlerSprite->getSpritesToDraw().back(),*m_jumpMoveSprite)){ //Collision
        velocity = 0;
        timer = 0;
    }
@@ -210,6 +210,20 @@ void Marshmellow::doodleMovement(){
                 orientation.position.x += -5.0;
             m_doodlerSprite->setState("RightUp");
             m_doodlerSprite->setOrientation(orientation);
+        }
+
+        if(command.moveUp == true)
+        {   orientation.position.y = m_doodlerSprite->getOrientation().position.y;
+            int jumpFrames = 0;
+            jumpFrames++;
+            orientation.position.x += jumpFrames;
+            orientation.position.y += jumpFrames*4;
+            if(orientation.position.y = orientation.position.y + 20)
+            {
+                orientation.position.y = orientation.position.y - 20;
+            }
+            m_doodlerSprite->setState("Up"); //What's going on here?
+            m_doodlerSprite->setOrientation(orientation); //What's going on here?
         }
         if(command.shoot == true)
         {

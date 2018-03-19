@@ -39,6 +39,10 @@ void InputMapper::processPressedKeys( InputSelector &inputSelector, PlayerComman
         case KEYBOARD_KEY::KEY_SPACE:
             playerCommands.shoot = true;
             break;
+        case KEYBOARD_KEY::KEY_W:
+        case KEYBOARD_KEY::KEY_UP_ARROW:
+            playerCommands.moveUp = true;
+            break;
         break;
         }
     }
@@ -61,6 +65,10 @@ void InputMapper::processReleasedKeys( InputSelector &inputSelector, PlayerComma
         case KEYBOARD_KEY::KEY_D:
         case KEYBOARD_KEY::KEY_RIGHT_ARROW:
             playerCommands.moveRight = false;
+            break;
+        case KEYBOARD_KEY::KEY_W:
+        case KEYBOARD_KEY::KEY_UP_ARROW:
+            playerCommands.moveUp = false;
             break;
         case KEYBOARD_KEY::KEY_R:
             playerCommands.reloadSprites = true;
