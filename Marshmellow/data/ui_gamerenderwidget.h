@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gamerenderwidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.10.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -45,7 +45,7 @@ public:
 
     void retranslateUi(QWidget *GameRenderWidget)
     {
-        GameRenderWidget->setWindowTitle(QApplication::translate("GameRenderWidget", "Form", Q_NULLPTR));
+        GameRenderWidget->setWindowTitle(QApplication::translate("GameRenderWidget", "Form", nullptr));
     } // retranslateUi
 
 };
