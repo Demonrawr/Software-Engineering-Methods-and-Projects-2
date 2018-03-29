@@ -42,7 +42,7 @@ Marshmellow::~Marshmellow()
 
 void Marshmellow::startButtonPressed()
 {
-
+    initvelocity = .2;
 }
 
 void Marshmellow::restartButtonPressed()
@@ -139,56 +139,42 @@ void Marshmellow::tick(float dt )
    auto p = m_doodlerSprite->getOrientation(); //Jump Physics
    velocity = initvelocity + ((-4.8)*timer);
    double height = velocity+(0.5*(-4.8)*timer);
-   timer+=.002;
-   //p.position.x += height;
+   timer+=.001;
+   p.position.y += height;
    m_doodlerSprite->setOrientation(p);
-   setCameraState();
    padMovement();
-   if (p.position.x > m_score) {
-       m_score = p.position.x;
-   }
-   if (p.position.x < (m_camera.getPosition().x-5/*fix here so that if character is out of the screen to say lost*/)){ //Drop
-       qDebug() << "Lost" << endl;
-   }
-
-   if (colliding(m_doodlerSprite->getSpritesToDraw().back(),*m_jumppadSprite)){ //Collision
-       velocity = 0;
-       timer = 0;
-   }
-
-   if (colliding(m_doodlerSprite->getSpritesToDraw().back(),*m_jumpMoveSprite)){ //Collision
-       velocity = 0;
-       timer = 0;
-   }
-
    for ( int i = 0; i < JumpPadBuffer.size(); i++){ //Collision
        SimpleSprite2D pad = JumpPadBuffer[i];
        if (colliding(m_doodlerSprite->getSpritesToDraw().back(), pad) && velocity<=0){
-           velocity = 0;
            timer = 0;
+           velocity = 0;
+           m_doodlerSprite->setState("RightDown");
+           m_score += 10;
        }
+   }
+   if (p.position.y < (m_camera.getPosition().y-5)){ //Drop
+       qDebug() << "Lost" << endl;
    }
    doodleMovement();
 
 }
 void Marshmellow::padMovement(){
-    if (m_jumpMoveSprite->getOrientation().position.y < (m_camera.getPosition().y-3.5)){
-       movepadOr.position.y += 7;
-       m_jumpMoveSprite->setOrientation(movepadOr);
-    }
-
-    if (m_jumpMoveSprite->getOrientation().position.x<2){
-       movepadOr.position.y = m_jumpMoveSprite->getOrientation().position.y;
-       movepadOr.position.x += 0.01*inverse;
-       m_jumpMoveSprite->setOrientation(movepadOr);
-    } else {
-        inverse *= -1;
-        movepadOr.position.y = m_jumpMoveSprite->getOrientation().position.y;
-        movepadOr.position.x -= 0.01;
-        m_jumpMoveSprite->setOrientation(movepadOr);
-    }
-    if (m_jumpMoveSprite->getOrientation().position.x<-2){
-        inverse *= -1;
+    for ( int i = 0; i < JumpPadBuffer.size(); i++){ //Collision
+        auto m = JumpPadBuffer[i].getOrientation();
+        if (m_score>1000){
+            m.position.x += -.2;
+        } else if (m_score>500){
+            m.position.x += -.1;
+        } else if (m_score>100){
+            m.position.x += -.05;
+        } else {
+            m.position.x += -.01;
+        }
+        JumpPadBuffer[i].setOrientation(m);
+        if (JumpPadBuffer[i].getOrientation().position.x < (m_camera.getPosition().x-3.5)){
+            m.position.x += 7;
+            JumpPadBuffer[i].setOrientation(m);
+            }
     }
 }
 
@@ -211,30 +197,11 @@ void Marshmellow::doodleMovement(){
             m_doodlerSprite->setState("RightUp");
             m_doodlerSprite->setOrientation(orientation);
         }
-
-        if(command.moveUp == true)
-        {   orientation.position.y = m_doodlerSprite->getOrientation().position.y;
-            int jumpFrames = 0;
-            jumpFrames++;
-            orientation.position.x += jumpFrames;
-            orientation.position.y += jumpFrames*4;
-            if(orientation.position.y = orientation.position.y + 20)
-            {
-                orientation.position.y = orientation.position.y - 20;
-            }
-            m_doodlerSprite->setState("Up"); //What's going on here?
-            m_doodlerSprite->setOrientation(orientation); //What's going on here?
-        }
-        if(command.shoot == true)
-        {
-            m_doodlerSprite->setState("Shoot");
-        }
 }
 
 void Marshmellow::setCameraState()
 {
-   // TODO
-   // Set the position of the Camera to properly follow the Doodler
+    /*
    auto p = m_doodlerSprite->getOrientation().position;
       if (p.y > (m_camera.getPosition().y+10)){
              auto c = m_camera.getPosition();
@@ -261,6 +228,7 @@ void Marshmellow::setCameraState()
           c.y += 0.03;
           m_camera.setPosition(c);
       }
+      */
 }
 
 void Marshmellow::queueBackgroundSprite()
@@ -314,7 +282,7 @@ void Marshmellow::queueSprites()
    m_spriteBatcher->clearInstances();
    queueBackgroundSprite();
    queueDoodlerSprite();
-   //queueJumpPadSprite();
+   queueJumpPadSprite();
    //queueInitialJumpPadSprite();
    //queueMovingPad();
    // TODO: Queue more sprites to draw here
@@ -343,9 +311,9 @@ void Marshmellow::queueMovingPad(){
 
 void Marshmellow::generatejumppad(){
    auto m = m_jumppadSprite->getOrientation();
-   for (int i=0;i<35;i++){
+   for (int i=0;i<7;i++){
        m.position.x= ((1+rand())/(RAND_MAX / (20 - 1 + 1) + 1)) - 10;
-       m.position.y= ((1+rand())/(RAND_MAX / ((m_camera.getPosition().y+10) - 1 + 1) + 1));
+       m.position.y= -0.5;
        m_jumppadSprite->setOrientation(m);
        JumpPadBuffer.push_back(*m_jumppadSprite);
    }
