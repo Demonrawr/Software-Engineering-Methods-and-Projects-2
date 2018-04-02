@@ -48,7 +48,7 @@ public:
     void restartButtonPressed();
     void pauseButtonPressed();
 
-    int getScore() { return m_score; }
+    double getScore() { return m_score; }
 
 private:
     void loadGraphicsAssets();

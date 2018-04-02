@@ -149,7 +149,7 @@ void Marshmellow::tick(float dt )
            timer = 0;
            velocity = 0;
            m_doodlerSprite->setState("RightDown");
-           m_score += 10;
+           m_score += 2;
        }
    }
    if (p.position.y < (m_camera.getPosition().y-5)){ //Drop
@@ -162,11 +162,34 @@ void Marshmellow::padMovement(){
     for ( int i = 0; i < JumpPadBuffer.size(); i++){ //Collision
         auto m = JumpPadBuffer[i].getOrientation();
         if (m_score>1000){
-            m.position.x += -.2;
-        } else if (m_score>500){
+            m.position.x += -.15;
+        } else if (m_score>900){
+            m.position.x += -.14;
+        }
+          else if (m_score>800){
+            m.position.x += -.13;
+        }
+          else if (m_score>700){
+            m.position.x += -.12;
+        }
+          else if (m_score>600){
+            m.position.x += -.11;
+        }
+          else if (m_score>500){
             m.position.x += -.1;
-        } else if (m_score>100){
-            m.position.x += -.05;
+        }
+          else if (m_score>400){
+            m.position.x += -.08;
+        }
+          else if (m_score>300){
+            m.position.x += -.06;
+        }
+          else if (m_score>200){
+            m.position.x += -.04;
+        }
+
+          else if (m_score>100){
+            m.position.x += -.02;
         } else {
             m.position.x += -.01;
         }
