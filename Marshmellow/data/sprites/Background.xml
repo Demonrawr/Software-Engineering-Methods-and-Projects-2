@@ -1,7 +1,7 @@
 <Sprite name="Background">
 	<Dimensions>
-		<X>20.5</X>
-		<Y>20.0</Y>
+		<X>100.5</X>
+		<Y>100.0</Y>
 	</Dimensions>
 	<Offset>
 		<X>0.0</X>

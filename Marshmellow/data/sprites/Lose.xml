@@ -1,0 +1,11 @@
+<Sprite name="Background">
+	<Dimensions>
+		<X>100.5</X>
+		<Y>100.0</Y>
+	</Dimensions>
+	<Offset>
+		<X>0.0</X>
+		<Y>0.0</Y>
+	</Offset>
+	<TexturePath>textures/lose.png</TexturePath>
+</Sprite>

@@ -1,6 +1,6 @@
 <MultiSprite name="JumpPad">
 	<State name="LeftUp">
-		<Sprite name="Firemonster">
+		<Sprite name="Doodler">
 			<Dimensions>
 				<X>0.3</X>
 				<Y>0.3</Y>
@@ -9,11 +9,11 @@
 				<X>0.0</X>
 				<Y>0.0</Y>
 			</Offset>
-			<TexturePath>textures/firemonster/firel.png</TexturePath>
+			<TexturePath>textures/marshmellow/Jump_l.png</TexturePath>
 		</Sprite>
 	</State>
-	<State name="Firemonster">
-		<Sprite name="Firemonster">
+	<State name="LeftDown">
+		<Sprite name="Doodler">
 			<Dimensions>
 				<X>0.3</X>
 				<Y>0.3</Y>
@@ -22,11 +22,11 @@
 				<X>0.0</X>
 				<Y>0.0</Y>
 			</Offset>
-			<TexturePath>textures/firemonster/fire2.png</TexturePath>
+			<TexturePath>textures/marshmellow/Idle_l.png</TexturePath>
 		</Sprite>
 	</State>
 	<State name="RightUp">
-		<Sprite name="Firemonster">
+		<Sprite name="Doodler">
 			<Dimensions>
 				<X>0.3</X>
 				<Y>0.3</Y>
@@ -35,11 +35,11 @@
 				<X>0.0</X>
 				<Y>0.0</Y>
 			</Offset>
-			<TexturePath>textures/firemonster/fire3.png</TexturePath>
+			<TexturePath>textures/marshmellow/Jump_r.png</TexturePath>
 		</Sprite>
 	</State>
 	<State name="RightDown">
-		<Sprite name="Firemonster">
+		<Sprite name="Doodler">
 			<Dimensions>
 				<X>0.3</X>
 				<Y>0.3</Y>
@@ -48,7 +48,7 @@
 				<X>0.0</X>
 				<Y>0.0</Y>
 			</Offset>
-			<TexturePath>textures/firemonstr/fire1.png</TexturePath>
+			<TexturePath>textures/marshmellow/Idle_r.png</TexturePath>
 		</Sprite>
 	</State>
 </MultiSprite>

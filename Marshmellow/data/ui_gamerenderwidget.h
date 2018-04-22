@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gamerenderwidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.10.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -28,13 +28,12 @@ public:
     {
         if (GameRenderWidget->objectName().isEmpty())
             GameRenderWidget->setObjectName(QStringLiteral("GameRenderWidget"));
-        GameRenderWidget->resize(400, 600);
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(GameRenderWidget->sizePolicy().hasHeightForWidth());
         GameRenderWidget->setSizePolicy(sizePolicy);
-        GameRenderWidget->setMinimumSize(QSize(400, 600));
+        GameRenderWidget->setMinimumSize(QSize(600, 400));
         gridLayout = new QGridLayout(GameRenderWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
 
@@ -45,7 +44,7 @@ public:
 
     void retranslateUi(QWidget *GameRenderWidget)
     {
-        GameRenderWidget->setWindowTitle(QApplication::translate("GameRenderWidget", "Form", Q_NULLPTR));
+        GameRenderWidget->setWindowTitle(QApplication::translate("GameRenderWidget", "Form", nullptr));
     } // retranslateUi
 
 };

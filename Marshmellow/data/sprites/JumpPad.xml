@@ -7,5 +7,5 @@
 		<X>0.0</X>
 		<Y>0.0</Y>
 	</Offset>
-	<TexturePath>textures/jumpPads/jumpPad.png</TexturePath>
+	<TexturePath>textures/jumpPads/tile.png</TexturePath>
 </Sprite>

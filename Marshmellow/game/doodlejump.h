@@ -48,7 +48,7 @@ public:
     void restartButtonPressed();
     void pauseButtonPressed();
 
-    double getScore() { return m_score; }
+    int getScore() { return m_score; }
 
 private:
     void loadGraphicsAssets();
@@ -56,6 +56,7 @@ private:
     void loadSprites();
     void loadDoodlerSprite();
     void loadBackgroundSprite();
+    void loadLoseSprite();
     void loadJumpPad();
     void loadMovingJump();
     void resetVariables();
@@ -78,6 +79,7 @@ private:
     void queueDoodlerSprite();
     void queueJumpPadSprite();
     void queueInitialJumpPadSprite();
+    void queueLoseSprite();
     void queueMovingPad();
     void doodleMovement();
     void padMovement();
@@ -93,6 +95,10 @@ private:
 
     std::unique_ptr<SimpleSprite2D> m_jumpMoveSprite;
     SimpleSprite2DData m_jumpMoveSpriteData;//Moving
+
+    //Lose Screen
+    std::unique_ptr<SimpleSprite2D> m_LoseSprite;
+    SimpleSprite2DData m_LoseSpriteData;
 
     // MultiSprite example
     MultiSpriteData m_doodlerSpriteData;
@@ -113,10 +119,12 @@ private:
     double timer = 0;
     double initvelocity = 0;
     double velocity = 0;
+    double tileSpeed = -0.01;
     Orientation2D orientation;
     Orientation2D movepadOr;
     PlayerCommands command;
     int inverse = 1;
+    bool lose = false;
 };
 
 #endif // DOODLEJUMP_H

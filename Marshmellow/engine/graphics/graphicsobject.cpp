@@ -5,8 +5,8 @@
 #include "GL/glew.h"
 
 GraphicsObject::GraphicsObject() :
-    m_screenWidth( 800 ),
-    m_screenHeight( 600 )
+    m_screenWidth( 500 ),
+    m_screenHeight( 300 )
 {
     initializeGLEW();
 }

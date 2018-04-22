@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gamewindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.10.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -123,13 +123,13 @@ public:
 
     void retranslateUi(QWidget *GameWindow)
     {
-        GameWindow->setWindowTitle(QApplication::translate("GameWindow", "Doodle Jump!", Q_NULLPTR));
-        ScoreLabel->setText(QApplication::translate("GameWindow", "Score:", Q_NULLPTR));
-        ScoreNumber->setText(QApplication::translate("GameWindow", "0", Q_NULLPTR));
-        restartButton->setText(QApplication::translate("GameWindow", "Restart", Q_NULLPTR));
-        pauseButton->setText(QApplication::translate("GameWindow", "Pause", Q_NULLPTR));
-        startButton->setText(QApplication::translate("GameWindow", "Start", Q_NULLPTR));
-        label->setText(QApplication::translate("GameWindow", "Doodle Jump!", Q_NULLPTR));
+        GameWindow->setWindowTitle(QApplication::translate("GameWindow", "Doodle Jump!", nullptr));
+        ScoreLabel->setText(QApplication::translate("GameWindow", "Score:", nullptr));
+        ScoreNumber->setText(QApplication::translate("GameWindow", "0", nullptr));
+        restartButton->setText(QApplication::translate("GameWindow", "Restart", nullptr));
+        pauseButton->setText(QApplication::translate("GameWindow", "Pause", nullptr));
+        startButton->setText(QApplication::translate("GameWindow", "Start", nullptr));
+        label->setText(QApplication::translate("GameWindow", "Doodle Jump!", nullptr));
     } // retranslateUi
 
 };

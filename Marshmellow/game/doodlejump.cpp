@@ -62,6 +62,8 @@ void Marshmellow::resetVariables(){
     c.x = 0;
     velocity = 0;
     timer = 0;
+    lose = false;
+    tileSpeed = -0.01;
     auto p = m_doodlerSprite->getOrientation();
     p.position.x = 0;
     p.position.y = 2;
@@ -79,20 +81,25 @@ void Marshmellow::loadSprites()
 {
    srand(time(0));
    m_spriteBatcher->clearSprites();
+   loadLoseSprite();
    loadJumpPad();
    loadMovingJump();
    Marshmellow::generatejumppad();
    loadDoodlerSprite();
    loadBackgroundSprite();
+
    // TODO: Load more sprites here
 }
 
 void Marshmellow::loadBackgroundSprite()
 {
-   // Load Sprite2D files to Sprite2D data structs
-   // Turn Sprite2D data structs into Sprite2D objects
    m_backgroundSpriteData = spriteFileDataToSpriteData( pathToSimpleSprite2DFileData( "sprites/Background.xml" ) );
    m_backgroundSprite = std::make_unique<SimpleSprite2D>( m_backgroundSpriteData );
+}
+void Marshmellow::loadLoseSprite()
+{
+   m_LoseSpriteData = spriteFileDataToSpriteData( pathToSimpleSprite2DFileData( "sprites/lose.xml" ) );
+   m_LoseSprite = std::make_unique<SimpleSprite2D>( m_LoseSpriteData );
 }
 void Marshmellow::loadJumpPad()
 {
@@ -106,9 +113,6 @@ void Marshmellow::loadMovingJump(){
 
 void Marshmellow::loadDoodlerSprite()
 {
-   // Load MultiSprite files to multisprite data structs
-   // Turn multisprite data structs into MultiSprites
-   // Give it an initial state if you want
    MultiSpriteFileData fdata = pathToMultiSpriteFileData( "sprites/Doodler.xml" );
    std::string setState = "RightUp";
    if( m_doodlerSprite )
@@ -148,12 +152,20 @@ void Marshmellow::tick(float dt )
        if (colliding(m_doodlerSprite->getSpritesToDraw().back(), pad) && velocity<=0){
            timer = 0;
            velocity = 0;
-           m_doodlerSprite->setState("RightDown");
-           m_score += 2;
+           if (command.moveRight == true){
+                m_doodlerSprite->setState("RightDown");
+                m_doodlerSprite->setState("RightUp");
+           }
+           if (command.moveLeft == true){
+               m_doodlerSprite->setState("LeftDown");
+               m_doodlerSprite->setState("LeftUp");
+           }
+           m_score += 10;
+           tileSpeed += -0.001;
        }
    }
-   if (p.position.y < (m_camera.getPosition().y-5)){ //Drop
-       qDebug() << "Lost" << endl;
+   if (p.position.y < (m_camera.getPosition().y-5)){
+       lose = true;
    }
    doodleMovement();
 
@@ -161,38 +173,7 @@ void Marshmellow::tick(float dt )
 void Marshmellow::padMovement(){
     for ( int i = 0; i < JumpPadBuffer.size(); i++){ //Collision
         auto m = JumpPadBuffer[i].getOrientation();
-        if (m_score>1000){
-            m.position.x += -.15;
-        } else if (m_score>900){
-            m.position.x += -.14;
-        }
-          else if (m_score>800){
-            m.position.x += -.13;
-        }
-          else if (m_score>700){
-            m.position.x += -.12;
-        }
-          else if (m_score>600){
-            m.position.x += -.11;
-        }
-          else if (m_score>500){
-            m.position.x += -.1;
-        }
-          else if (m_score>400){
-            m.position.x += -.08;
-        }
-          else if (m_score>300){
-            m.position.x += -.06;
-        }
-          else if (m_score>200){
-            m.position.x += -.04;
-        }
-
-          else if (m_score>100){
-            m.position.x += -.02;
-        } else {
-            m.position.x += -.01;
-        }
+        m.position.x += tileSpeed;
         JumpPadBuffer[i].setOrientation(m);
         if (JumpPadBuffer[i].getOrientation().position.x < (m_camera.getPosition().x-3.5)){
             m.position.x += 7;
@@ -207,7 +188,7 @@ void Marshmellow::doodleMovement(){
             orientation.position.x = orientation.position.x + -0.1f;
             orientation.position.y = m_doodlerSprite->getOrientation().position.y;
             if(orientation.position.x < -2.6)
-                orientation.position.x += 5.0;
+                qDebug() << "Lost" << endl;
             m_doodlerSprite->setState("LeftUp");
             m_doodlerSprite->setOrientation(orientation);
         }
@@ -215,8 +196,6 @@ void Marshmellow::doodleMovement(){
         {
             orientation.position.x = orientation.position.x + 0.1f;
             orientation.position.y = m_doodlerSprite->getOrientation().position.y;
-            if(orientation.position.x > 2.6)
-                orientation.position.x += -5.0;
             m_doodlerSprite->setState("RightUp");
             m_doodlerSprite->setOrientation(orientation);
         }
@@ -224,34 +203,7 @@ void Marshmellow::doodleMovement(){
 
 void Marshmellow::setCameraState()
 {
-    /*
-   auto p = m_doodlerSprite->getOrientation().position;
-      if (p.y > (m_camera.getPosition().y+10)){
-             auto c = m_camera.getPosition();
-             c.y += 2;
-             m_camera.setPosition(c);
-      }
-      else if (p.y > (m_camera.getPosition().y+8)){
-          auto c = m_camera.getPosition();
-          c.y += 0.9;
-          m_camera.setPosition(c);
-      }
-      else if (p.y > (m_camera.getPosition().y+6)) {
-          auto c = m_camera.getPosition();
-          c.y += 0.2;
-          m_camera.setPosition(c);
-      }
-      else if (p.y > (m_camera.getPosition().y+4)) {
-          auto c = m_camera.getPosition();
-          c.y += 0.06;
-          m_camera.setPosition(c);
-      }
-      else if (p.y > (m_camera.getPosition().y+1)) {
-          auto c = m_camera.getPosition();
-          c.y += 0.03;
-          m_camera.setPosition(c);
-      }
-      */
+
 }
 
 void Marshmellow::queueBackgroundSprite()
@@ -264,6 +216,17 @@ void Marshmellow::queueBackgroundSprite()
    glm::mat4 m = orientation2DToMat4( o );
    m = m * glm::scale( glm::vec3( width, height, 1.0f ) );
    m_spriteBatcher->queueSpriteInstance( m_backgroundSprite->getHandle(), m );
+}
+void Marshmellow::queueLoseSprite()
+{
+   auto o = m_LoseSprite->getOrientation();
+   o.position = m_camera.getPosition();
+   m_LoseSprite->setOrientation( o );
+   float width = m_gameWidth;
+   float height = width * m_camera.getAspectRatio();
+   glm::mat4 m = orientation2DToMat4( o );
+   m = m * glm::scale( glm::vec3( width, height, 1.0f ) );
+   m_spriteBatcher->queueSpriteInstance( m_LoseSprite->getHandle(), m );
 }
 void Marshmellow::queueInitialJumpPadSprite()
 {
@@ -306,16 +269,13 @@ void Marshmellow::queueSprites()
    queueBackgroundSprite();
    queueDoodlerSprite();
    queueJumpPadSprite();
-   //queueInitialJumpPadSprite();
-   //queueMovingPad();
-   // TODO: Queue more sprites to draw here
+   if (lose==true){
+       queueLoseSprite();
+   }
 }
 
 void Marshmellow::queueDoodlerSprite()
 {
-   // A MultiSprite provides a list of sprites to draw at any one time
-   // Draw each one of them independently
-   // Consider making a MultiSprite batching function to generalize this one
    Doodler doodle;
    std::vector<SimpleSprite2D> doodlerSprites = m_doodlerSprite->getSpritesToDraw();
    for( int i = 0; i < doodlerSprites.size(); i++ )
@@ -334,7 +294,7 @@ void Marshmellow::queueMovingPad(){
 
 void Marshmellow::generatejumppad(){
    auto m = m_jumppadSprite->getOrientation();
-   for (int i=0;i<7;i++){
+   for (int i=0;i<5;i++){
        m.position.x= ((1+rand())/(RAND_MAX / (20 - 1 + 1) + 1)) - 10;
        m.position.y= -0.5;
        m_jumppadSprite->setOrientation(m);
